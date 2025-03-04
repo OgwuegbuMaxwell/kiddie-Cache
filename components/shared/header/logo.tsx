@@ -9,7 +9,7 @@ export default function Logo() {
         <Link href='/' className='flex-start'>
             <Image
                 // src='/images/kiddiecache.svg'
-                src='/images/kid1.png'
+                src='/images/logo454.png'
                 alt={`${APP_NAME} logo`}
                 width={150} 
                 height={150} 

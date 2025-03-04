@@ -22,7 +22,15 @@ The project leverages a robust stack for performance, scalability, and maintaina
 
 ### Homepage setup
 
+#### initial homepage setup
 ![Image](https://github.com/user-attachments/assets/7f61763f-c0c7-466f-ba25-b38e601fc880)
+
+
+
+### Product Page
+
+#### initial product page setup
+![Image](https://github.com/user-attachments/assets/69f8c6e7-9752-47bb-86e6-8b61fbefbd6e)
 
 
 

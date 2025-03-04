@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  // id Marks this field as the Primary Key for the table.
+  // @default(dbgenerated("gen_random_uuid()")) :  Sets the default value using PostgreSQL's built-in function gen_random_uuid(), 
+  // meaning the database will generate a random UUID for each new row.
+  // @db.Uuid	: Maps this field to the UUID type in PostgreSQL instead of a regular string.
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String
+  // @unique(map: "product_slug_idx"):
+  // Ensures that the slug value is unique across all rows in the table and explicitly 
+  // names the unique constraint as "product_slug_idx".
+  // The map: "product_slug_idx" assigns a custom name (product_slug_idx) to the unique constraint in PostgreSQL, 
+  // which is useful for database migrations and indexing.
+  slug        String   @unique(map: "product_slug_idx")
+  category    String
+  images      String[]
+  brand       String
+  description String
+  stock       Int
+  price       Decimal  @default(0) @db.Decimal(12, 2)
+  rating      Decimal  @default(0) @db.Decimal(3, 2)
+  numReviews  Int
+  isFeatured  Boolean  @default(false)
+  banner      String?
+
+  // @default(now()): Sets the default value to the current timestamp (now()) when a new record is inserted.
+  // @db.Timestamp(6)	: Maps this field to PostgreSQL's TIMESTAMP(6) data type, allowing microsecond precision (6 decimal places).
+  // Why Use @db.Timestamp(6)?
+  //   Ensures high precision: The (6) means timestamps include microseconds (e.g., 2025-03-04 14:30:15.123456).
+  // Better for logs & analytics: When tracking data changes, microsecond precision can be useful.
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+
+  // @updatedAt : Automatically updates the timestamp to the current time whenever the record is modified.
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamp(6)
+}

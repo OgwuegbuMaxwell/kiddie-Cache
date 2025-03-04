@@ -5,7 +5,7 @@ export default function Header() {
     
   return (
     <header className="w-full border-b ">
-        <div className="wrapper flex-between !py-1">
+        <div className="wrapper flex-between ">
 
             {/* Logo */}
             <Logo/>
