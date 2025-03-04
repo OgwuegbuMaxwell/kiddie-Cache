@@ -4,9 +4,9 @@ import Link from 'next/link'
 import React from 'react'
 import ProductPrice from './product-price'
 
-import { Product } from '@/types'
+import { StoreProductReturnType } from '@/types'
 
-export default function ProductCard({product} : {product: Product}) {
+export default function ProductCard({product} : {product: StoreProductReturnType}) {
   return (
     <Card className='w-full max-w-sm'>
         {/* Card header */}

@@ -12,8 +12,8 @@ export async function getLatestProducts() {
         orderBy: {createdAt: 'desc'}
     });
 
-    console.log("Data before converting: ", data)
-    console.log("Data after converting: ", convertToPlainObject(data))
+    // console.log("Data before converting: ", data)
+    // console.log("Data after converting: ", convertToPlainObject(data))
 
     return convertToPlainObject(data);
 }

@@ -1,8 +1,10 @@
 import React from 'react'
 import ProductCard from './product-card';
-import { Product } from '@/types';
+import { StoreProductReturnType } from '@/types';
 
-export default function ProductList({data, title, limit}: {data: Product[]; title?: string; limit?: number}) {
+
+
+export default function ProductList({data, title, limit}: {data: StoreProductReturnType[]; title?: string; limit?: number}) {
 
     const limitedData = limit ? data.slice(0, limit) : data;
 
@@ -13,7 +15,7 @@ export default function ProductList({data, title, limit}: {data: Product[]; titl
                 limitedData.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {
-                            limitedData.map((product: Product) => (
+                            limitedData.map((product: StoreProductReturnType) => (
                                 <ProductCard product={product} key={product.slug}/>
                             ))
                         }
