@@ -29,7 +29,7 @@ export default function ModeToggle() {
     <DropdownMenu>
         {/* trigger */}
         <DropdownMenuTrigger asChild>
-            <Button variant='ghost' className='focus-visible:ring-0 focus-visible:ring-offset-0'>
+            <Button variant='ghost' className='focus-visible:ring-0 focus-visible:ring-offset-0' >
                 {
                     theme === 'system' ? (
                         <SunMoon/>

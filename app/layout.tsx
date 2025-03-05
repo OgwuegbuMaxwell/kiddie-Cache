@@ -10,7 +10,7 @@ const inter = Inter ({
 
 export const metadata: Metadata = {
   title: {
-    template: `%s | Kiddies Cache`,
+    template: `%s | Kiddie Cache`,
     default: APP_NAME,
   },
   description: "A morden ecommerce platform built with Next.js",
