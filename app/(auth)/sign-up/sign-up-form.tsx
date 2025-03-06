@@ -2,25 +2,27 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { signInWithCredentials } from '@/lib/actions/user.actions'
-import { signInDefaultValues } from '@/lib/constants'
+import { signUpUser } from '@/lib/actions/user.actions'
+import { signUpDefaultValues } from '@/lib/constants'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import React, { useActionState } from 'react'
+import React, { useActionState, useEffect } from 'react'
 import { useFormStatus } from 'react-dom'
+import { useRouter } from "next/navigation";
 
-export default function CredentialsSigninForm() {
-    const [data, action] = useActionState(signInWithCredentials, {
+export default function SignUpForm() {
+    const [data, action] = useActionState(signUpUser, {
         success: false,
-        message: ''
+        message: '',
+        redirectTo: "",
     })
 
-    const SignInButton = () => {
+    const SignUpButton = () => {
         const { pending } = useFormStatus();
         return (
             <Button className='w-full' variant='default'>
                 {
-                    pending ? 'Signing In..': 'Sign In'
+                    pending ? 'Submitting..': 'Sign Up'
                 }
             </Button>
         )
@@ -30,10 +32,32 @@ export default function CredentialsSigninForm() {
     const searchParams = useSearchParams();
     const callbackUrl  = searchParams.get('callbackUrl') || '/'
 
+
+
+    const router = useRouter();
+    useEffect(() => {
+        if (data.success && data.redirectTo) {
+            router.push(data.redirectTo);
+        }
+    }, [data.success, data.redirectTo]);
+    
+
   return (
     <form action={action}>
         <input type="hidden" name='callbackUrl' value={callbackUrl}/>
         <div className="space-y-6">
+            <div>
+                <Label htmlFor='name'>Name</Label>
+                <Input 
+                    id='name' 
+                    name='name' 
+                    type='text' 
+                    required 
+                    autoComplete='name'
+                    defaultValue={signUpDefaultValues.name}
+                />
+            </div>
+
             <div>
                 <Label htmlFor='email'>Email</Label>
                 <Input 
@@ -42,7 +66,7 @@ export default function CredentialsSigninForm() {
                     type='email' 
                     required 
                     autoComplete='email'
-                    defaultValue={signInDefaultValues.email}
+                    defaultValue={signUpDefaultValues.email}
                 />
             </div>
 
@@ -54,15 +78,28 @@ export default function CredentialsSigninForm() {
                     type='password' 
                     required 
                     autoComplete='password'
-                    defaultValue={signInDefaultValues.password}
+                    defaultValue={signUpDefaultValues.password}
                 />
             </div>
 
             <div>
-                <SignInButton/>
+                <Label htmlFor='confirmPassword'>Confirm Password</Label>
+                <Input 
+                    id='confirmPassword' 
+                    name='confirmPassword' 
+                    type='password' 
+                    required 
+                    autoComplete='confirmPassword'
+                    defaultValue={signUpDefaultValues.conformPassword}
+                />
+            </div>
+
+            <div>
+                <SignUpButton/>
             </div>
 
             {
+                
                 data && !data.success && (
                     <div className="text-center text-destructive">
                         {
@@ -70,15 +107,20 @@ export default function CredentialsSigninForm() {
                         }
                     </div>
                 )
+                
+
             }
 
+
             <div className="text-sm text-center text-muted-foreground">
-                    Don&apos;t have an account?{' '}
-                    <Link href='/sign-up' target='_self' className='link'>
-                        Sign Up
+                    Already have an account?{' '}
+                    <Link href='/sign-in' target='_self' className='link'>
+                        Sign In
                     </Link>
             </div>
         </div>
     </form>
   )
 }
+
+
