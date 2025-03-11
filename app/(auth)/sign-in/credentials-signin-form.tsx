@@ -38,7 +38,7 @@ export default function CredentialsSigninForm() {
     const router = useRouter();
 
     useEffect(() => {
-        if (data && data.message) {
+        if (data && data.success) {
 
             router.push(callbackUrl);
         }
