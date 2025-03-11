@@ -43,7 +43,6 @@ export default {
                     }
                 });
 
-
                 // if(user) {
                 //     console.log("User", user)
                 // }

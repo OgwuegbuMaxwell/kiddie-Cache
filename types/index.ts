@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { insertProductSchema, cartItemSchema, insertCartSchema, signInFormSchema } from "@/lib/validators";
+import { insertProductSchema, cartItemSchema, insertCartSchema, signInFormSchema, shippingAddressSchema } from "@/lib/validators";
 import { Prisma } from "@prisma/client";
 
 import { prisma } from "@/db/prisma"
@@ -26,6 +26,9 @@ export type CartItemType = z.infer<typeof cartItemSchema>;
 export type  UserCartReturnType = Prisma.PromiseReturnType<
     typeof getMyCart
 >;
+
+// Shipping
+export type ShippingAddressType = z.infer<typeof shippingAddressSchema>;
 
 
 
