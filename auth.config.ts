@@ -4,7 +4,6 @@ import GitHubProvider from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials";
 import type { NextAuthConfig } from "next-auth";
 import { signInFormSchema } from "./lib/validators";
-import { prisma } from "./db/prisma";
 import { compareSync } from 'bcrypt-ts-edge';
 
 
@@ -34,6 +33,9 @@ export default {
                 }
 
                 const {email, password} = validateData.data;
+
+                // moved prisma import here to avoid edge compactibility issues
+                const { prisma } = await import("./db/prisma");
 
                 const user = await prisma.user.findFirst({
                     where: {

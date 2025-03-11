@@ -13,6 +13,7 @@ import { getAccountByUserId } from './db/account';
 
 
 export const {auth, handlers: {GET, POST}, signIn, signOut} = NextAuth({
+    
     adapter: PrismaAdapter(prisma),
     session: {strategy: 'jwt'},
     ...authConfig,

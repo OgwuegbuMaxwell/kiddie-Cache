@@ -13,8 +13,6 @@ const authRoutes = ["/login", "/register", "/sign-in", "/sign-up"];
 
 export default auth(async (req) => {
 
-
-
     const { nextUrl, cookies } = req;
     const url = process.env.NODE_ENV === "production"
         ? "https://kiddie-cache.vercel.app"
