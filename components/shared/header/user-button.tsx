@@ -6,7 +6,9 @@ import { UserIcon } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react'
 
+
 export default async function UserButton() {
+
 
     const session = await auth();
 
@@ -21,6 +23,8 @@ export default async function UserButton() {
     }
 
     const firstInitial = session.user?.name?.charAt(0).toUpperCase() ?? 'User';
+
+
 
     return (
         <div className='flex gap-2 items-center'>
@@ -60,6 +64,17 @@ export default async function UserButton() {
                                     Sign Out
                                 </Button>
                         </form>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className='P-0 mb-1'>
+                        <Button variant={'ghost'} className='flex-1'>
+                            <Link
+                                href={'/account'}
+                                className=''
+                                
+                            >
+                                My Account
+                            </Link>
+                        </Button>
                     </DropdownMenuItem>
                 </DropdownMenuContent>
 

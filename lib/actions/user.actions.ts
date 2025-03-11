@@ -6,9 +6,10 @@ import { isRedirectError } from "next/dist/client/components/redirect-error"
 import { hashSync } from "bcrypt-ts-edge"
 import { prisma } from "@/db/prisma"
 import { formatError } from "../utils"
+import { AuthError } from "next-auth"
 
 // Sign in user with credentials
-export async function signInWithCredentials(prevState: unknown, formData: FormData) {
+export async function signInWithCredentials_Old_One(prevState: unknown, formData: FormData) {
     try {
         const user = signInFormSchema.parse({
             email: formData.get('email'),
@@ -33,12 +34,10 @@ export async function signInWithCredentials(prevState: unknown, formData: FormDa
 }
 
 
-
 // Sign user out
-export async function signOutUser() {
+export async function signOutUser_Old_One() {
     await signOut();
 }
-
 
 
 // Sign up user
@@ -92,6 +91,86 @@ export async function signUpUser_Old_One(prevState: unknown, formData: FormData)
 }
 
 
+
+
+
+
+
+// Sign in user with credentials
+export async function signInWithCredentials(prevState: unknown, formData: FormData) {
+    
+    const validateData = signInFormSchema.parse({
+        email: formData.get('email'),
+        password: formData.get('password')
+    });
+
+
+    if(!validateData) {
+        return {
+            success: false,
+            message: 'Invalid email or password'
+        }
+    }
+
+
+    const { email, password } = validateData;
+
+    // Check if user exist based on the email provided
+    const userExist = await prisma.user.findFirst({
+        where: {
+            email: email,
+        }
+    })
+
+    // !userExist.password: if user sign in with google provider, they are not
+    // going to have password on the user model.
+    // So we want that only way to login through credential is by having a password also
+    if(!userExist || !userExist.password || !userExist.email) {
+        return {
+            success: false,
+            message: 'Invalid email or password',
+            
+        }
+    }
+
+
+    try {
+        await signIn('credentials', {
+            email: userExist.email,
+            password: password,
+            // redirect: true,  // Disable automatic redirect
+        });
+
+    } catch (error) {
+        if (error instanceof AuthError) {
+            console.log('Credential error: ', error)
+            switch (error.type) {
+                case "CredentialsSignin":
+                    return {success: false, message: 'Invalid credentials'};
+                default :
+                return {success: false, message: 'Please confirm your email address'};
+            }
+        }
+    }
+
+    return {
+        success: true,
+        message: 'Signed in successfully',
+    }
+
+
+
+}
+
+
+
+// Sign user out
+export async function signOutUser() {
+    await signOut();
+}
+
+
+
 // Sign up user
 export async function signUpUser(prevState: unknown, formData: FormData) {
     try {
@@ -103,7 +182,10 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
         });
 
         const plainPassword = user.password;
+
+        // format user data
         user.password = hashSync(user.password, 10);
+        user.email = user.email.toLowerCase();
 
         const res = await prisma.user.create({
             data: {
@@ -166,3 +248,17 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
 }
 
 
+
+//  Sign in user with Google
+export async function googleAuthenticate() {
+    try {
+        await signIn('google')
+    } catch (error) {
+        if (error instanceof AuthError)  {
+            return 'google log in failed'
+        }
+
+        throw error
+        
+    }
+}

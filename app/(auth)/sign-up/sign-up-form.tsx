@@ -9,6 +9,7 @@ import { useSearchParams } from 'next/navigation'
 import React, { useActionState, useEffect } from 'react'
 import { useFormStatus } from 'react-dom'
 import { useRouter } from "next/navigation";
+import GoogleLogin from '@/components/shared/auth/google-button'
 
 export default function SignUpForm() {
     const [data, action] = useActionState(signUpUser, {
@@ -43,83 +44,87 @@ export default function SignUpForm() {
     
 
   return (
-    <form action={action}>
-        <input type="hidden" name='callbackUrl' value={callbackUrl}/>
-        <div className="space-y-6">
-            <div>
-                <Label htmlFor='name'>Name</Label>
-                <Input 
-                    id='name' 
-                    name='name' 
-                    type='text' 
-                    required 
-                    autoComplete='name'
-                    defaultValue={signUpDefaultValues.name}
-                />
+    <>
+        <form action={action}>
+            <input type="hidden" name='callbackUrl' value={callbackUrl}/>
+            <div className="space-y-6">
+                <div>
+                    <Label htmlFor='name'>Name</Label>
+                    <Input 
+                        id='name' 
+                        name='name' 
+                        type='text' 
+                        required 
+                        autoComplete='name'
+                        defaultValue={signUpDefaultValues.name}
+                    />
+                </div>
+
+                <div>
+                    <Label htmlFor='email'>Email</Label>
+                    <Input 
+                        id='email' 
+                        name='email' 
+                        type='email' 
+                        required 
+                        autoComplete='email'
+                        defaultValue={signUpDefaultValues.email}
+                    />
+                </div>
+
+                <div>
+                    <Label htmlFor='password'>Password</Label>
+                    <Input 
+                        id='password' 
+                        name='password' 
+                        type='password' 
+                        required 
+                        autoComplete='password'
+                        defaultValue={signUpDefaultValues.password}
+                    />
+                </div>
+
+                <div>
+                    <Label htmlFor='confirmPassword'>Confirm Password</Label>
+                    <Input 
+                        id='confirmPassword' 
+                        name='confirmPassword' 
+                        type='password' 
+                        required 
+                        autoComplete='confirmPassword'
+                        defaultValue={signUpDefaultValues.conformPassword}
+                    />
+                </div>
+
+                <div>
+                    <SignUpButton/>
+                </div>
+
+                {
+                    
+                    data && !data.success && (
+                        <div className="text-center text-destructive">
+                            {
+                                data.message
+                            }
+                        </div>
+                    )
+                    
+
+                }
+
+
+                <div className="text-sm text-center text-muted-foreground">
+                        Already have an account?{' '}
+                        <Link href='/sign-in' target='_self' className='link'>
+                            Sign In
+                        </Link>
+                </div>
             </div>
-
-            <div>
-                <Label htmlFor='email'>Email</Label>
-                <Input 
-                    id='email' 
-                    name='email' 
-                    type='email' 
-                    required 
-                    autoComplete='email'
-                    defaultValue={signUpDefaultValues.email}
-                />
-            </div>
-
-            <div>
-                <Label htmlFor='password'>Password</Label>
-                <Input 
-                    id='password' 
-                    name='password' 
-                    type='password' 
-                    required 
-                    autoComplete='password'
-                    defaultValue={signUpDefaultValues.password}
-                />
-            </div>
-
-            <div>
-                <Label htmlFor='confirmPassword'>Confirm Password</Label>
-                <Input 
-                    id='confirmPassword' 
-                    name='confirmPassword' 
-                    type='password' 
-                    required 
-                    autoComplete='confirmPassword'
-                    defaultValue={signUpDefaultValues.conformPassword}
-                />
-            </div>
-
-            <div>
-                <SignUpButton/>
-            </div>
-
-            {
-                
-                data && !data.success && (
-                    <div className="text-center text-destructive">
-                        {
-                            data.message
-                        }
-                    </div>
-                )
-                
-
-            }
-
-
-            <div className="text-sm text-center text-muted-foreground">
-                    Already have an account?{' '}
-                    <Link href='/sign-in' target='_self' className='link'>
-                        Sign In
-                    </Link>
-            </div>
-        </div>
-    </form>
+        </form>
+        
+        <GoogleLogin/>
+    </>
   )
 }
 

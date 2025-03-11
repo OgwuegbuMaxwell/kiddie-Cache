@@ -1,22 +1,16 @@
-import React from 'react'
-import ProductList from '@/components/shared/product/product-list'
+import LandingPageContent from '@/components/shared/product/landing-page-content'
+import ProductListSkeleton from '@/components/shared/product/product-list-skeleton'
+import React, { Suspense } from 'react'
 
-import { getLatestProducts } from '@/lib/actions/product-actions'
-
-// const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-// call it
-// await delay(2000);
 
 export default async function page() {
 
-  const latestProduct = await getLatestProducts();
-
-
   return (
-    <div>
-      <ProductList data={latestProduct} title='Newest Arrivals' limit={4}/>
-          
-    </div>
+      <section>
+          <Suspense fallback={<ProductListSkeleton />}>
+              <LandingPageContent/>
+          </Suspense>
+      </section>
 
   )
 }
