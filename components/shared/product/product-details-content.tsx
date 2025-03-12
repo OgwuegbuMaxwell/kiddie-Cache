@@ -7,11 +7,23 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import AddToCart from "./add-to-cart";
 import { UserCartReturnType } from "@/types";
+import WhatsAppButton from "../whatsapp-button";
+import { formatCurrency } from "@/lib/utils";
 
 
 export default async function ProductDetailsContent({ slug, cart }: { slug: string, cart?: UserCartReturnType }) {
     const product = await getProductBySlug(slug);
     if (!product) return notFound();
+
+
+    const baseUrl =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : "https://kiddie-cache.vercel.app";
+    const productUrl = `${baseUrl}/product/${product.slug}`;
+
+    const message = `Hello, I would like to inquire about *${product.name}*.\n\n💰 Price: ${formatCurrency(product.price)}\n🔗 View product: ${productUrl}`;
+  
 
     return (
         <>
@@ -87,6 +99,11 @@ export default async function ProductDetailsContent({ slug, cart }: { slug: stri
                                     </div>
                                 )
                             }
+
+                            <div className="mt-2">
+                                <WhatsAppButton message={message}/>
+                            </div>
+
                         </CardContent>
                     </Card>
                 </div>

@@ -32,7 +32,7 @@ export default function CredentialsSigninForm() {
     const searchParams = useSearchParams();
     const callbackUrl  = searchParams.get('callbackUrl') || '/'
 
-    console.log(callbackUrl)
+    // console.log(callbackUrl)
 
 
     const router = useRouter();

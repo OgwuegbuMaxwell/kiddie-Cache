@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { formatNumberWithDecimal } from './utils';
+import { PAYMENT_METHODS } from './constants';
 
 const currency = z.string()
 .refine((value) => /^\d+(\.\d{2})?$/.test(formatNumberWithDecimal(Number(value))), 
@@ -112,6 +113,51 @@ export const shippingAddressSchema = z.object({
 
 
 
+// Schema for payment method
+export const paymentMethodSchema = z
+  .object({
+    type: z.string().min(1, 'Payment method is required'),
+  })
+  .refine((data) => PAYMENT_METHODS.includes(data.type), {
+    path: ['type'],
+    message: 'Invalid payment method',
+  });
+/**
+    Adds a custom validation using .refine():
+    Checks if data.type is included in the PAYMENT_METHODS array.
+    If not, it returns an error message: "Invalid payment method".
+    .refine() allows adding custom validation logic beyond built-in Zod functions.
+ */
 
 
+// Schema for inserting order
+export const insertOrderSchema = z.object({
+    userId: z.string().min(1, 'User is required'),
+    itemsPrice: currency,
+    shippingPrice: currency,
+    taxPrice: currency,
+    totalPrice: currency,
+    paymentMethod: z.string().refine((data) => PAYMENT_METHODS.includes(data), {
+      message: 'Invalid payment method',
+    }),
+    shippingAddress: shippingAddressSchema,
+  });
 
+  // Schema for inserting an order item
+export const insertOrderItemSchema = z.object({
+    productId: z.string(),
+    slug: z.string(),
+    image: z.string(),
+    name: z.string(),
+    price: currency,
+    qty: z.number(),
+  });
+  
+  // Schema for the PayPal paymentResult
+  export const paymentResultSchema = z.object({
+    id: z.string(),
+    status: z.string(),
+    email_address: z.string(),
+    pricePaid: z.string(),
+  });
+  

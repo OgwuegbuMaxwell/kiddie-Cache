@@ -257,3 +257,82 @@ export async function removeItemFromCart(productId:string) {
 
 
 
+
+export const getSessionCart = async(sessionCartId: string) => {
+    try {
+        const sessionCart = await prisma.cart.findFirst({
+            where: {
+                sessionCartId: sessionCartId
+            }
+        })
+
+        return sessionCart;
+    } catch (error) {
+        console.log(error)
+        return null;
+    }
+
+    
+}
+
+
+
+
+
+/**
+ * Merges the session-based cart into the user's cart upon login.
+ * @param {string} sessionCartId - The guest user's cart session ID.
+ * @param {string} userId - The authenticated user's ID.
+ */
+export async function mergeSessionCartToUser(sessionCartId: string, userId: string) {
+    try {
+        // Step 1: Retrieve the session cart
+        // at this point, user is browsing with anonymous session cart.
+        // id there's this session cart, get it
+        const sessionCart = await prisma.cart.findFirst({
+            where: { sessionCartId:  sessionCartId},
+        });
+
+        // return if there's no session. don't do anything
+        if (!sessionCart) {
+            console.log("No session cart found.");
+            return { success: false, message: "No session cart found." };
+        }
+
+        // Step 2: Retrieve the user's existing cart
+        const userCart = await prisma.cart.findFirst({
+            where: { userId },
+        });
+
+        
+        if (userCart) {
+            // Step 3a: Override the user's cart items with the session cart items
+            await prisma.cart.update({
+                where: { id: userCart.id },
+                data: {
+                    items: sessionCart.items as Prisma.CartUpdateitemsInput[],
+                    ...calcPrice(sessionCart.items as CartItemType[])
+                },
+            });
+
+
+            // Step 4: Delete the session cart after merging
+            await prisma.cart.deleteMany({ where: { sessionCartId } });
+
+
+            return { success: true, message: "Cart merged successfully." };
+        } else {
+            
+            // Step 3b: Assign the session cart to the user if no user cart exists
+            await prisma.cart.updateMany({
+                where: { sessionCartId },
+                data: { userId },
+            });
+
+            return { success: true, message: "Cart assigned to user successfully." };
+        }
+    } catch (error) {
+        console.error("Error merging session cart:", error);
+        return { success: false, message: "Error merging carts." };
+    }
+}

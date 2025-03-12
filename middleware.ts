@@ -9,6 +9,7 @@ const { auth } = NextAuth(authConfig);
 
 
 // Define authentication and API route rules
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const authRoutes = ["/login", "/register", "/sign-in", "/sign-up"];
 
 export default auth(async (req) => {
@@ -42,6 +43,14 @@ export default auth(async (req) => {
 
 
     const isLoggedIn = !!req.auth;
+
+    if(!isLoggedIn && privateRoutes.some((p) => p.test(nextUrl.pathname))) {
+        const signInUrl = new URL("/sign-in", url); // Change based on your sign-in route
+        signInUrl.searchParams.set("callbackUrl", nextUrl.toString()); // Add callback parameter
+        return NextResponse.redirect(signInUrl);
+    }
+
+    /** 
     const isAuthRoute = authRoutes.includes(nextUrl.pathname);
     const isPrivateRoute = privateRoutes.includes(nextUrl.pathname);
     const isApiRoute = nextUrl.pathname.startsWith("/api");
@@ -57,10 +66,13 @@ export default auth(async (req) => {
         }
     }
 
+    // console.log('Next Rout', nextUrl.pathname)
+
     // 🚀 Fix 2: If the user is NOT logged in and tries to visit a protected route, redirect to sign-in
     if (!isLoggedIn && isPrivateRoute) {
         return NextResponse.redirect(`${url}/sign-in`);
     }
+    */
 
     return NextResponse.next();
 });

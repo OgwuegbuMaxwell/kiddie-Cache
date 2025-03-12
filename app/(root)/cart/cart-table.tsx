@@ -11,6 +11,7 @@ import { addItemToCart, removeItemFromCart } from '@/lib/actions/cart.actions';
 import { ArrowRight, Loader, Minus, Plus } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { formatCurrency } from '@/lib/utils';
+import WhatsAppButton from '@/components/shared/whatsapp-button';
 
 export default function CartTable({cart}: {cart?: UserCartReturnType}) {
     const router = useRouter();
@@ -63,6 +64,29 @@ export default function CartTable({cart}: {cart?: UserCartReturnType}) {
             setCheckoutPending(false); // Stop loading after navigation
         });
     };
+
+
+
+
+    const baseUrl =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : "https://kiddie-cache.vercel.app";
+  
+  const w_items = cart
+    ? cart.items
+        .map(
+          (item, index) =>
+            `Item ${index + 1}: ${baseUrl}/product/${item.slug}\nQuantity: (${item.qty})\nPrice: $${item.price}\n`
+        )
+        .join("\n")
+    : "Cart is empty.";
+  
+    
+    const w_totalPrice = formatCurrency( cart ? cart.itemsPrice : 0);
+
+    const message = `Hello, I am interested in purchasing the following items:\n\n ${w_items}\n\n *Total Price:* ${w_totalPrice}`;
+
 
 
   return (
@@ -173,7 +197,7 @@ export default function CartTable({cart}: {cart?: UserCartReturnType}) {
 
                                 <Button
                                     disabled={isCheckoutPending}
-                                    className='w-full'
+                                    className='w-full mb-2'
                                     onClick={handleCheckout}
                                 >
                                     {
@@ -185,6 +209,10 @@ export default function CartTable({cart}: {cart?: UserCartReturnType}) {
                                     }
                                     Proceed to Checkout
                                 </Button>
+
+                               
+                                <WhatsAppButton message={message}/>
+                                
                         </CardContent>
                         
                     </Card>

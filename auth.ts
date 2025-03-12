@@ -8,6 +8,9 @@ import { prisma } from '@/db/prisma';
 import authConfig from './auth.config';
 import { getUserById } from './db/user';
 import { getAccountByUserId } from './db/account';
+import { cookies } from 'next/headers';
+import { getSessionCart, mergeSessionCartToUser } from './lib/actions/cart.actions';
+
 
 
 
@@ -42,7 +45,9 @@ export const {auth, handlers: {GET, POST}, signIn, signOut} = NextAuth({
                 return true;
         },
 
-        async jwt({token}) {
+        async jwt({token, trigger}) {
+            // avalaible after signed in only
+
             // console.log('JWT: ', token)
             // JWT:  {
             //     name: 'Ogwuegbu Maxwell',
@@ -74,6 +79,21 @@ export const {auth, handlers: {GET, POST}, signIn, signOut} = NextAuth({
             const existingAccount = getAccountByUserId(existingUser.id)
             // if existingAccount, we set token.isOauth to true
             token.isOauth = !!existingAccount;
+
+            if (trigger === 'signIn' || trigger === 'signUp') {
+                const cookiesObject = await cookies();
+                const sessionCartId = cookiesObject.get('sessionCartId')
+                // console.log('I was triggered: ', sessionCartId)
+                if(sessionCartId) {
+                    const sessionCart = await getSessionCart(sessionCartId.value)
+
+                    // Override any existing user cart with the session cart
+                    if (sessionCart) {
+                        await mergeSessionCartToUser(sessionCartId.value, existingUser.id);
+                    }
+                }
+            }
+
             // becuase if you update the name in the database, it will reflect in the token
             // although it is not advicible to allow user update there name if they sign in with google
             token.name = existingUser.name;
