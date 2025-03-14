@@ -94,14 +94,6 @@
 
 
 
-/* reduce logo height */
-
-@media (max-width: 800px) { /* Medium screens (md) */
-  .site-logo img {
-    height: 70px !important; /* Reduce height */
-  }
-}
-
 
 
 

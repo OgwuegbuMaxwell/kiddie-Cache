@@ -19,10 +19,14 @@ export default async function OrderDetailsPage(props: {params: Promise<{id: stri
 
     return (
         <OrderDetailsTable order={{
-            ...order,
-            shippingAddress: order.shippingAddress as ShippingAddressType,
-            
-        }}/>
+                ...order,
+                shippingAddress: order.shippingAddress as ShippingAddressType,
+                
+            }}
+
+            paypalClientId={process.env.PAYPAL_CLIENT_ID || 'sb'}
+
+        />
        
     )
 }
