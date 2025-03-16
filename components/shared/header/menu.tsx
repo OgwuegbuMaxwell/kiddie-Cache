@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { EllipsisVertical, ShoppingCart } from 'lucide-react'
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
-import UserButton from './user-button'
+// import UserButton from './user-button'
 import UserButtonContainer from './user-button-container'
 
 export default function Menu() {
@@ -20,7 +20,8 @@ export default function Menu() {
                 </Link>
             </Button>
 
-            <UserButton/>
+            {/* <UserButton/> */}
+            <UserButtonContainer/>
         </nav>
 
         {/* Small screen only */}

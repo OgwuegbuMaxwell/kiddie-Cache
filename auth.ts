@@ -80,6 +80,8 @@ export const {auth, handlers: {GET, POST}, signIn, signOut} = NextAuth({
             // if existingAccount, we set token.isOauth to true
             token.isOauth = !!existingAccount;
 
+
+
             if (trigger === 'signIn' || trigger === 'signUp') {
                 const cookiesObject = await cookies();
                 const sessionCartId = cookiesObject.get('sessionCartId')
@@ -104,6 +106,7 @@ export const {auth, handlers: {GET, POST}, signIn, signOut} = NextAuth({
             token.name = existingUser.name;
             token.email = existingUser.email;
             token.image = existingUser.image;
+            token.role = existingUser.role // Add role
 
             return token;
 
@@ -140,6 +143,7 @@ export const {auth, handlers: {GET, POST}, signIn, signOut} = NextAuth({
                     ...session.user,
                     id: token.sub,
                     isOauth: token.isOauth,
+                    role: token.role,
 
                 }
             };

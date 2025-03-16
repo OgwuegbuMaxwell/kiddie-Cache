@@ -34,3 +34,9 @@ The project leverages a robust stack for performance, scalability, and maintaina
 
 
 
+### Admin
+
+#### Admin Overview (/admin/overview)
+![Image](https://github.com/user-attachments/assets/084b4f0c-08af-4207-89ba-ff66ce5188ca)
+
+
