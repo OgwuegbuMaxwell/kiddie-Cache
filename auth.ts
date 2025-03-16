@@ -94,8 +94,13 @@ export const {auth, handlers: {GET, POST}, signIn, signOut} = NextAuth({
                 }
             }
 
+            // YOU CAN ALSO HANDLE update TRIGGER
+            // if (trigger === 'update') {
+                // ....
+            // }
+
             // becuase if you update the name in the database, it will reflect in the token
-            // although it is not advicible to allow user update there name if they sign in with google
+            // although it is not advisible to allow user update there name if they sign in with google
             token.name = existingUser.name;
             token.email = existingUser.email;
             token.image = existingUser.image;

@@ -9,6 +9,7 @@ import { CartItemType, PaymentResultType } from "@/types";
 import { insertOrderSchema } from "../validators";
 import { paypal } from "../paypal";
 import { revalidatePath } from "next/cache";
+import { PAGE_SIZE } from "../constants";
 
 
 // Create order and create the order items
@@ -278,5 +279,34 @@ export async function updateOrderToPaid({
 
 }
 
+
+
+// Get user's orders
+export async function getMyOrders({
+  limit = PAGE_SIZE,
+  page,
+}: {
+  limit?: number; // Default limit is PAGE_SIZE (number of items per page)
+  page: number; // Current page number
+}) {
+  const session = await auth();
+  if (!session) throw new Error('User is not authorized');
+
+  const data = await prisma.order.findMany({
+    where: { userId: session?.user?.id },
+    orderBy: { createdAt: 'desc' },
+    take: limit, // Limit the number of results based on the specified or default limit
+    skip: (page - 1) * limit, // Skip orders to paginate correctly
+  });
+
+  const dataCount = await prisma.order.count({
+    where: { userId: session?.user?.id },
+  });
+
+  return {
+    data,
+    totalPages: Math.ceil(dataCount / limit), // Calculate total pages based on order count and limit
+  };
+}
 
 

@@ -58,24 +58,26 @@ export default async function UserButton() {
                         </div>
                     </DropdownMenuLabel>
 
-                    <DropdownMenuItem className='P-0 mb-1'>
-                        <form action={signOutUser} className='w-full'>
-                                <Button className='w-full py-4 justify-start ' variant='ghost'>
-                                    Sign Out
+                    <DropdownMenuItem>
+                        <Link href='/user/profile' className='w-full'>
+                                User Profile
+                        </Link>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem>
+                        <Link href='/user/orders' className='w-full'>
+                                Order History
+                        </Link>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem className='p-0 mb-1'>
+                        <form action={signOutUser} className='w-full '>
+                                <Button className='w-full py-2 px-2 justify-start' variant='ghost'>
+                                Sign Out
                                 </Button>
                         </form>
                     </DropdownMenuItem>
-                    <DropdownMenuItem className='P-0 mb-1'>
-                        <Button variant={'ghost'} className='flex-1'>
-                            <Link
-                                href={'/account'}
-                                className=''
-                                
-                            >
-                                My Account
-                            </Link>
-                        </Button>
-                    </DropdownMenuItem>
+
                 </DropdownMenuContent>
 
             </DropdownMenu>

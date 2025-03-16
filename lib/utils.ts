@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
+import qs from 'query-string'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -154,3 +155,63 @@ export const formatDateTime = (dateString: Date) => {
     timeOnly: formattedTime,
   };
 };
+
+
+
+
+// Form the pagination links
+export function formUrlQuery({
+  params,
+  key,
+  value,
+}: {
+  params: string; // The current query string (e.g., "?page=2&sort=asc")
+  key: string; // The key (parameter name) to update or add in the query string
+  value: string | null; // The new value for the key, or null to remove it
+}) {
+
+  // Parses the query string (e.g., "?page=2&sort=asc") into an object: {page: "2", sort: 'asc'}
+  const query = qs.parse(params);
+
+  // Updates the query object:
+  // If value is null, the key will be removed when we stringify the query later.
+  // If value is not null, the key-value pair will be updated or added.
+  // eg: query["page"] = "3"; // Updates page number
+  // query["sort"] = null; // Removes the "sort" parameter
+  query[key] = value;
+
+
+  return qs.stringifyUrl(
+    {
+      url: window.location.pathname, // Gets the base URL without query parameters
+      query, // The updated query object
+    },
+    {
+      skipNull: true, // Removes keys with null values
+    }
+  );
+
+  /**
+      Converts the updated query object back into a valid query string.
+
+      Uses window.location.pathname to keep the base URL (e.g., /orders).
+
+      Skips any query parameters that are null, removing them from the URL.
+
+      Example Outputs:
+      formUrlQuery({
+        params: "?page=2&sort=asc",
+        key: "page",
+        value: "3"
+      });
+      // Output: "/orders?page=3&sort=asc"
+
+      formUrlQuery({
+        params: "?page=2&sort=asc",
+        key: "sort",
+        value: null
+      });
+      // Output: "/orders?page=2"
+
+   */
+}
