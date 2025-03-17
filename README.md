@@ -36,7 +36,9 @@ The project leverages a robust stack for performance, scalability, and maintaina
 
 ### Admin
 
-#### Admin Overview (/admin/overview)
+#### Admin Overview Page ('/admin/overview')
 ![Image](https://github.com/user-attachments/assets/084b4f0c-08af-4207-89ba-ff66ce5188ca)
 
+#### Admin Orders Page ('/admin/orders')
+![Image](https://github.com/user-attachments/assets/84df43ca-e5cb-4494-9841-c6a502e4f541)
 
