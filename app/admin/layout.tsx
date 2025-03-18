@@ -25,7 +25,7 @@ export default async function AdminLayout({
                     width={100}
                     alt={APP_NAME}
                     priority={true}
-                    className='w-auto h-[30px]'
+                    className='w-auto h-[30px] rounded-sm'
                 />
                 </Link>
                 <MainNav className='mx-6' />

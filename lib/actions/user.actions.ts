@@ -183,7 +183,7 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
             confirmPassword: formData.get("confirmPassword"),
         });
 
-        const plainPassword = user.password;
+        // const plainPassword = user.password;
 
         // format user data
         user.password = hashSync(user.password, 10);
@@ -197,29 +197,30 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
             },
         });
 
-        console.log("Sign Up Response: ", res);
-
-        // Sign in the user but prevent automatic redirect
-        const signInResult = await signIn("credentials", {
-            email: user.email,
-            password: plainPassword,
-            redirect: false, // Prevents NextAuth from automatically redirecting
-        });
-        
-
-        if (signInResult?.error) {
-            return { 
-                success: false, 
-                message: "Login failed after signup" 
+        if (res.id) {
+            return {
+                success: true,
+                message: "User registered successfully",
             };
         }
 
+        // Sign in the user but prevent automatic redirect
+        // const signInResult = await signIn("credentials", {
+        //     email: user.email,
+        //     password: plainPassword,
+        //     redirect: false, // Prevents NextAuth from automatically redirecting
+        // });
+        
+
+        // if (signInResult?.error) {
+        //     return { 
+        //         success: false, 
+        //         message: "Login failed after signup" 
+        //     };
+        // }
+
         // Return a redirect path so the client can handle redirection
-        return {
-            success: true,
-            message: "User registered successfully",
-            redirectTo: "/", // Now client-side useEffect can redirect
-        };
+
 
     } catch (error) {
 

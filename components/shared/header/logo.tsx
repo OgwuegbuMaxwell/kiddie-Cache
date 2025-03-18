@@ -5,8 +5,8 @@ import { APP_NAME } from '@/lib/constants'
 export default function Logo() {
 
   return (
-    <div className="flex-start site-logo">
-        <Link href='/' className='flex-start'>
+    <div className=" site-logo">
+        <Link href='/' className='flex-start '>
 
             <Image
               src='/images/logo-new.svg'
@@ -14,7 +14,7 @@ export default function Logo() {
               width={100}
               alt={APP_NAME}
               priority={true}
-              className='w-auto h-[30px]'
+              className='w-auto h-[30px] rounded-sm'
             />
         </Link>
     </div>

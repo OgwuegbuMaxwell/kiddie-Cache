@@ -13,7 +13,7 @@ export default async function LandingPageContent() {
   return (
     <div>
       
-      <ProductList data={latestProduct} title='Newest Arrivals' limit={4}/>
+      <ProductList data={latestProduct} title='Newest Arrivals' limit={12}/>
           
     </div>
 

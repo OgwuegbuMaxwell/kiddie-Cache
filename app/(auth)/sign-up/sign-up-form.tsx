@@ -5,17 +5,15 @@ import { Label } from '@/components/ui/label'
 import { signUpUser } from '@/lib/actions/user.actions'
 import { signUpDefaultValues } from '@/lib/constants'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
-import React, { useActionState, useEffect } from 'react'
+import React, { useActionState } from 'react'
 import { useFormStatus } from 'react-dom'
-import { useRouter } from "next/navigation";
 import GoogleLogin from '@/components/shared/auth/google-button'
 
 export default function SignUpForm() {
     const [data, action] = useActionState(signUpUser, {
         success: false,
         message: '',
-        redirectTo: "",
+        
     })
 
     const SignUpButton = () => {
@@ -30,23 +28,11 @@ export default function SignUpForm() {
     }
 
 
-    const searchParams = useSearchParams();
-    const callbackUrl  = searchParams.get('callbackUrl') || '/'
 
-
-
-    const router = useRouter();
-    useEffect(() => {
-        if (data.success && data.redirectTo) {
-            router.push(data.redirectTo);
-        }
-    }, [data.success, data.redirectTo]);
-    
 
   return (
     <>
         <form action={action}>
-            <input type="hidden" name='callbackUrl' value={callbackUrl}/>
             <div className="space-y-6">
                 <div>
                     <Label htmlFor='name'>Name</Label>
@@ -104,6 +90,20 @@ export default function SignUpForm() {
                     
                     data && !data.success && (
                         <div className="text-center text-destructive">
+                            {
+                                data.message
+                            }
+                        </div>
+                    )
+                    
+
+                }
+
+                
+                {
+                    
+                    data && data.success && (
+                        <div className="text-center text-green-400">
                             {
                                 data.message
                             }

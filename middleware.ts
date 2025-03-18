@@ -50,6 +50,10 @@ export default auth(async (req) => {
         return NextResponse.redirect(signInUrl);
     }
 
+
+
+
+
     /** 
     const isAuthRoute = authRoutes.includes(nextUrl.pathname);
     const isPrivateRoute = privateRoutes.includes(nextUrl.pathname);
