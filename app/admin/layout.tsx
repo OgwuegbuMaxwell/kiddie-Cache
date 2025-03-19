@@ -3,8 +3,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Menu from '@/components/shared/header/menu';
 import MainNav from './main-nav';
-import { Input } from '@/components/ui/input';
 import { requireAdmin } from '@/lib/auth-guard';
+import AdminSearch from '@/components/admin/admin-search';
+
 
 
 export default async function AdminLayout({
@@ -31,13 +32,7 @@ export default async function AdminLayout({
                 <MainNav className='mx-6' />
                 <div className='ml-auto items-center flex space-x-4'>
 
-                <div>
-                  <Input
-                    type='search'
-                    placeholder='Search'
-                    className='md:w-[100px] lg:w-[300px]'
-                  />
-                </div>
+                <AdminSearch/>
 
                 <Menu />
                 </div>

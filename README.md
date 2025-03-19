@@ -50,3 +50,15 @@ The project leverages a robust stack for performance, scalability, and maintaina
 
 #### Update Product ('admin/products/{id}')
 ![Image](https://github.com/user-attachments/assets/481e52b1-9c10-4b56-840c-95b05d060906)
+
+
+#### Admin User Manipulation
+
+###### List Users
+![Image](https://github.com/user-attachments/assets/a1aa1396-5ed7-4a9e-ac0f-6ab61154d22f)
+
+###### Update Users
+![Image](https://github.com/user-attachments/assets/34bc63af-5569-45d8-9bff-e57c3dcb192b)
+
+
+

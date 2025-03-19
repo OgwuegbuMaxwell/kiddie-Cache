@@ -19,6 +19,7 @@ export default function OrdersSkeleton() {
                     <TableRow>
                     <TableHead>ID</TableHead>
                     <TableHead>DATE</TableHead>
+                    <TableHead>BUYER</TableHead>
                     <TableHead>TOTAL</TableHead>
                     <TableHead>PAID</TableHead>
                     <TableHead>DELIVERED</TableHead>
@@ -35,6 +36,10 @@ export default function OrdersSkeleton() {
                         </TableCell>
                         <TableCell>
                             {/* {formatDateTime(order.createdAt).dateTime} */}
+                            <Skeleton className="h-4 w-[130px]" />
+                        </TableCell>
+                        <TableCell>
+                            {/* {order.name} */}
                             <Skeleton className="h-4 w-[130px]" />
                         </TableCell>
                         <TableCell>
@@ -76,6 +81,10 @@ export default function OrdersSkeleton() {
                         </TableCell>
                         <TableCell>
                             {/* {formatDateTime(order.createdAt).dateTime} */}
+                            <Skeleton className="h-4 w-[130px]" />
+                        </TableCell>
+                        <TableCell>
+                            {/* {order.name} */}
                             <Skeleton className="h-4 w-[130px]" />
                         </TableCell>
                         <TableCell>

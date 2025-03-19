@@ -7,18 +7,30 @@ import { formatCurrency, formatDateTime, formatId } from '@/lib/utils'
 import Link from 'next/link'
 import React from 'react'
 
-export default async function Orders({page}: {page: string}) {
+export default async function Orders({page, query}: {page: string; query: string}) {
     const orders = await getAllOrders({
         page: Number(page),
         limit: 2,
-        query: 'all'
+        query: query
     })
 
     console.log('Orders: ',orders)
 
   return (
     <div className='space-y-2'>
-        <h2 className='h2-bold'>Orders</h2>
+        <div className="flex items-center gap-3">
+            <h1 className="h2-bold">Orders</h1>
+            {
+                query && (
+                    <div>
+                        Filtered by <i>&quot; {query} &quot;</i>
+                        <Link href='/admin/orders'>
+                            <Button variant='outline' size='sm' className="ml-2">Clear Filter</Button>
+                        </Link>
+                    </div>
+                )
+            }
+        </div>
 
         <div className="overflow-x-auto">
             <Table>
@@ -27,6 +39,7 @@ export default async function Orders({page}: {page: string}) {
                     <TableRow>
                     <TableHead>ID</TableHead>
                     <TableHead>DATE</TableHead>
+                    <TableHead>BUYER</TableHead>
                     <TableHead>TOTAL</TableHead>
                     <TableHead>PAID</TableHead>
                     <TableHead>DELIVERED</TableHead>
@@ -41,6 +54,9 @@ export default async function Orders({page}: {page: string}) {
                     <TableCell>{formatId(order.id)}</TableCell>
                     <TableCell>
                         {formatDateTime(order.createdAt).dateTime}
+                    </TableCell>
+                    <TableCell>
+                        {order.user.name}
                     </TableCell>
                     <TableCell>{formatCurrency(order.totalPrice)}</TableCell>
                     <TableCell>
@@ -68,13 +84,13 @@ export default async function Orders({page}: {page: string}) {
             </Table>
 
             {
-                orders.totalPages > 1 && (
+                orders.data.length >= 1 && orders.totalPages > 1 && (
                     <Pagination
                     page={Number(page) || 1}
                     totalPage={orders?.totalPages}
                     />
                 )
-                }
+            }
         </div>
     </div>
   )

@@ -29,7 +29,7 @@ export const PAYMENT_METHODS = process.env.PAYMENT_METHODS ? process.env.PAYMENT
 export const DEFAULT_PAYMENT_METHOD = process.env.DEFAULT_PAYMENT_METHOD || 'PayPal';
 
 
-export const PAGE_SIZE = Number(process.env.PAGE_SIZE) || 2;
+export const PAGE_SIZE = Number(process.env.PAGE_SIZE) || 4;
 
 
 export const productDefaultValues = {
@@ -46,6 +46,13 @@ export const productDefaultValues = {
     isFeatured: false,
     banner: null,
   };
+
+
+
+
+
+export const USERS_ROLES = process.env.USERS_ROLES ? process.env.USERS_ROLES.split(', ') : ['admin', 'user']
+
 
 
 
