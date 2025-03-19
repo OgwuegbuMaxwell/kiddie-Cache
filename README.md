@@ -38,8 +38,9 @@ The project leverages a robust stack for performance, scalability, and maintaina
 
 #### Admin Overview Page ('/admin/overview')
 ![Image](https://github.com/user-attachments/assets/084b4f0c-08af-4207-89ba-ff66ce5188ca)
+
 ##### Dark Mode
-![Image](https://github.com/user-attachments/assets/84df43ca-e5cb-4494-9841-c6a502e4f541)
+![Image](https://github.com/user-attachments/assets/ba15fbf6-da8a-47a7-837d-6f09e777c7f2)
 
 #### Admin Orders Page ('/admin/orders')
 ![Image](https://github.com/user-attachments/assets/84df43ca-e5cb-4494-9841-c6a502e4f541)
@@ -47,3 +48,5 @@ The project leverages a robust stack for performance, scalability, and maintaina
 #### Create Product ('admin/products/create')
 ![Image](https://github.com/user-attachments/assets/b59b96c3-89ff-42a2-9c80-9b826bb1d6f4)
 
+#### Update Product ('admin/products/{id}')
+![Image](https://github.com/user-attachments/assets/481e52b1-9c10-4b56-840c-95b05d060906)

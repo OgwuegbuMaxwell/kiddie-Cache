@@ -22,11 +22,22 @@ export async function getLatestProducts() {
 }
 
 
-// Get single product by it's action
+// Get single product by it's slug
 export async function getProductBySlug(slug:string) {
     return await prisma.product.findFirst({
         where: {slug: slug},
     });
+}
+
+// Get single product by it's id
+export async function getProductById(productId:string) {
+  const data = await prisma.product.findFirst({
+      where: {id: productId},
+  });
+
+  return convertToPlainObject(data)
+
+
 }
 
 
