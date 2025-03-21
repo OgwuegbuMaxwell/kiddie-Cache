@@ -4,7 +4,8 @@ Kiddie Cache is a modern e-commerce platform built with Next.js 15, designed to 
 
 ### Live Site
 [kiddie-cache.vercel.app](https://kiddie-cache.vercel.app)
-![Image](https://github.com/user-attachments/assets/520cdd1b-d966-43f0-a676-40aacbd6eba6)
+
+![Image](https://github.com/user-attachments/assets/af0cb406-80d3-4009-b162-d9a4f6b72a2b)
 
 ### Features
 
@@ -74,7 +75,7 @@ The project leverages a robust stack for performance, scalability, and maintaina
 ### Homepage setup
 
 #### Landing Page
-![Image](https://github.com/user-attachments/assets/520cdd1b-d966-43f0-a676-40aacbd6eba6)
+![Image](https://github.com/user-attachments/assets/af0cb406-80d3-4009-b162-d9a4f6b72a2b)
 
 
 ### Search Page
