@@ -6,12 +6,6 @@ import { prisma } from "@/db/prisma"
 import { getMyCart } from "@/lib/actions/cart.actions";
 
 
-// export type Product = z.infer<typeof insertProductSchema> & {
-//     id: string;
-//     rating: number;
-//     createdAt: Date;
-//     updatedAt: Date;
-// };
 
 export type ProductType = z.infer<typeof insertProductSchema> & {
     id: string;

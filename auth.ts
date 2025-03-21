@@ -50,13 +50,13 @@ export const {auth, handlers: {GET, POST}, signIn, signOut} = NextAuth({
 
             // console.log('JWT: ', token)
             // JWT:  {
-            //     name: 'Ogwuegbu Maxwell',
-            //     email: 'maxifreelancing@gmail.com',
-            //     picture: 'https://lh3.googleusercontent.com/a/ACg8ocIF2jHohcXDH-QWw7TWC5hPzFGVSvDyWU3t0xam_p8su_Iy=s96-c',
-            //     sub: 'd869fdb5-05bb-405e-8acc-ce7bf7c468ff',
+            //     name: 'MY NAME',
+            //     email: 'max*******@gmail.com',
+            //     picture: 'https://lh3.googleusercontent.com/a/ACg8ocI*********3t0xam_p8su_Iy=s96-c',
+            //     sub: 'd869fdb5-******c468ff',
             //     iat: 1741439914,
             //     exp: 1744031914,
-            //     jti: 'c7bdb49a-2239-43a2-9737-12cee9d06164'
+            //     jti: 'c7bdb49a-2******d06164'
             //   }
 
             if(!token.sub) return token;
@@ -67,9 +67,9 @@ export const {auth, handlers: {GET, POST}, signIn, signOut} = NextAuth({
 
             // console.log('User object: ', existingUser)
             // User object:  {
-            //     id: 'd869fdb5-05bb-405e-8acc-ce7bf7c468ff',
-            //     name: 'Ogwuegbu Maxwell',
-            //     email: 'maxifreelancing@gmail.com',
+            //     id: 'd869fdb5-05***e-8acc-c*****8ff',
+            //     name: 'MY NAME',
+            //     email: 'ma****n@gmail.com',
             //     ....
             //   }
 
@@ -115,23 +115,23 @@ export const {auth, handlers: {GET, POST}, signIn, signOut} = NextAuth({
         async session({token, session}) {
             // console.log("Session Token: ", token)
             // Session Token:  {
-            //     name: 'Ogwuegbu Maxwell',
-            //     email: 'maxifreelancing@gmail.com',
-            //     picture: 'https://lh3.googleusercontent.com/a/ACg8ocIF2jHohcXDH-QWw7TWC5hPzFGVSvDyWU3t0xam_p8su_Iy=s96-c',
-            //     sub: 'd869fdb5-05bb-405e-8acc-ce7bf7c468ff',
+            //     name: 'MY NAME',
+            //     email: 'ma****@gmail.com',
+            //     picture: 'https://lh3.googleusercontent.com/a/ACg8ocIF2jHohcXDH-Q*****SvDyWU3t0xam_p8su_Iy=s96-c',
+            //     sub: 'd869fdb5-05bb-405e-8acc-ce7bf....',
             //     iat: 1741439914,
             //     exp: 1744031914,
-            //     jti: 'c7bdb49a-2239-43a2-9737-12cee9d06164',
+            //     jti: 'c7bdb49a-2239-43a2-9737-12cee9d06...',
             //     isOauth: true,
-            //     image: 'https://lh3.googleusercontent.com/a/ACg8ocIF2jHohcXDH-QWw7TWC5hPzFGVSvDyWU3t0xam_p8su_Iy=s96-c'
+            //     image: 'https://lh3.googleusercontent.com/a/ACg8ocIF2jH*******vDyWU3t0xam_p8su_Iy=s96-c'
             //   }
 
             // console.log("Session Object: ", session)
             // Session Object:  {
             //     user: {
-            //       name: 'Ogwuegbu Maxwell',
-            //       email: 'maxifreelancing@gmail.com',
-            //       image: 'https://lh3.googleusercontent.com/a/ACg8ocIF2jHohcXDH-QWw7TWC5hPzFGVSvDyWU3t0xam_p8su_Iy=s96-c'
+            //       name: 'MY NAME',
+            //       email: 'ma****@gmail.com',
+            //       image: 'https://lh3.googleusercontent.com/a/ACg8ocI***ohcXDH-QWw7*****zFGVSvDyWU3t0xam_p8su_Iy=s96-c'
             //     },
             //     expires: '2025-04-07T14:27:05.955Z'
             //   }
@@ -153,9 +153,6 @@ export const {auth, handlers: {GET, POST}, signIn, signOut} = NextAuth({
 })
 
 
-// The sub is the ID
-// d869fdb5-05bb-405e-8acc-ce7bf7c468ff
-// d869fdb5-05bb-405e-8acc-ce7bf7c468ff
 
 
 
@@ -163,139 +160,6 @@ export const {auth, handlers: {GET, POST}, signIn, signOut} = NextAuth({
 
 
 
-/** 
-import NextAuth from 'next-auth';
-import { PrismaAdapter } from '@auth/prisma-adapter';
-import { prisma } from '@/db/prisma';
-import CredentialsProvider from 'next-auth/providers/credentials'
-import { compareSync } from 'bcrypt-ts-edge';
-
-import type { NextAuthConfig } from 'next-auth';
-
-// Cookie
-
-
-
-
-export const config = {
-    adapter: PrismaAdapter(prisma),
-
-    session: {
-        strategy: 'jwt',
-        maxAge: 30 * 24 * 60 * 60, // 30 days
-
-    },
-
-    pages: {
-        signIn: '/sign-in',
-        error: '/sign-in', 
-        // signOut: '/sign-out',
-        
-        // verifyRequest: '/auth/verify-request', // (used for check email message)
-        // newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
-    },
-
-    providers: [
-        CredentialsProvider({
-            credentials: {
-                email: {type: 'email'},
-                password: {type: 'password'}
-            },
-            async authorize(credentials) {
-                if(credentials == null) return null;
-
-                // Find user in database
-                const user = await prisma.user.findFirst({
-                    where: {
-                        email: credentials.email as string
-                    }
-                });
-
-                // Check if user exist and password matches
-                if(user && user.password) {
-                    const isMatch = compareSync(credentials.password as string, user.password)
-
-                    // If password is correct, return the user
-                    if (isMatch) {
-                        return {
-                            id: user.id,
-                            name: user.name,
-                            email: user.email,
-                            role: user.role
-                        }
-                    }
-                }
-
-                // If user does not exist or the password does not match, return null
-                return null;
-            }
-        }),
-    ],
-
-    callbacks: {
-        // Session
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        async session({session, user, trigger, token}: any) {
-            // Set the user id from the token
-            session.user.id = token.sub;
-            // session.user.role = token.role;
-            // session.user.name = token.name;
-
-
-            console.log('User token',token)
-            // User token {
-            //     name: 'Chioma',
-            //     email: 'chioma@gmail.com',
-            //     sub: 'd5a7dd63-9d02-4bd0-85b3-12585194e4d5',
-            //     role: 'user',
-            //     iat: 1741255604,
-            //     exp: 1743847604,
-            //     jti: '9862e97c-cdc2-4721-94dc-c240528e6c15'
-            //   }
-
-            // If there is an update, set the user name
-            if (trigger === 'update') {
-                session.user.name = user.name
-            }
-            return session
-        },
-
-        // JWT
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        async jwt({token, user}: any) {
-            // Assign user fields to the token
-            if (user) {
-                token.role = user.role;
-
-                // If user has no name, then use the email
-                if(user.name === 'NO_NAME') {
-                    token.name = user.email!.split('@')[0]
-                }
-
-                // Update the database to reflect the token name
-                await prisma.user.update({
-                    where: {
-                        id: user.id
-                    },
-                    data: {name: token.name}
-                })
-            }
-            return token
-        },
-
-
-
-    }
-
-
-}satisfies NextAuthConfig;
-
-
-
-export const { handlers: {GET, POST}, auth, signIn, signOut } = NextAuth(config)
-
-
-*/
 
 
 

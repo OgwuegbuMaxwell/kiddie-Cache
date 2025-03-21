@@ -1,19 +1,70 @@
 ## Kiddie Cache - E-commerce Platform
 
-Kiddie Cache is a modern e-commerce platform built using the latest web technologies. The platform focuses on delivering a seamless shopping experience for children's clothing and accessories. This project will be continuously updated as it is built.
+Kiddie Cache is a modern e-commerce platform built with Next.js 15, designed to offer a seamless shopping experience for kids’ apparel and accessories. This project showcases best practices in modern full-stack development with authentication, file uploads, secure payments, and a scalable architecture.
+
+### Live Site
+[kiddie-cache.vercel.app](https://kiddie-cache.vercel.app)
+![Image](https://github.com/user-attachments/assets/520cdd1b-d966-43f0-a676-40aacbd6eba6)
+
+### Features
+
+#### Core Functionalities
+ - **Product Catalog** – Showcase items with images, details, categories, and pricing.
+
+ - **Search & Pagination**  – Efficient product filtering and pagination.
+
+ - **Shopping Cart** – Add/remove items to cart with quantity control (supports guest sessions).
+
+ - **Checkout System** – Place orders with flexible payment methods.
+
+ - **User Account** – View order history and order details.
+
+#### 🔐 Authentication
+ - Google OAuth (via NextAuth.js v5)
+
+ - Email/Password (Credentials provider)
+
+ - Session cart merging on login
+
+#### Payment Integration
+ - ✅ PayPal Checkout (Live/Sandbox)
+
+ - 💳 Stripe
+
+ - 💵 Pay on Delivery
+
+#### 📂 File Upload
+
+ - Managed using UploadThing for smooth image/file handling in product management.
+
+#### Form Validation
+
+ - All forms validated using Zod, with type-safe schemas and clean error handling.
 
 
 ### Tech Stack
 
 The project leverages a robust stack for performance, scalability, and maintainability:
 
- - **Frontend**: Next.js 15, React 19, TypeScript
+ - **Next.js 15**: Framework for frontend and backend (App Router)
+ 
+ - **TypeScript**: Static typing across the codebase
 
- - **Backend**: Next.js API Routes
+ - **Tailwind CSS + ShadCN UI**: UI components & styling
 
- - **Database**: PostgreSQL
+ - **Prisma ORM**: Database ORM for Postgres
 
- - **ORM**: Prisma
+ - **Neon**: Serverless Postgres database
+
+ - **Vercel**: Hosting and edge deployment
+
+ - **NextAuth.js v5**: Authentication (Google & Credentials)
+
+ - **UploadThing**: Product image uploads
+
+ - **PayPal / Stripe**: Payment gateways
+
+ - **Zod**: Form validation
 
 
 
@@ -22,8 +73,14 @@ The project leverages a robust stack for performance, scalability, and maintaina
 
 ### Homepage setup
 
-#### initial homepage setup
-![Image](https://github.com/user-attachments/assets/7f61763f-c0c7-466f-ba25-b38e601fc880)
+#### Landing Page
+![Image](https://github.com/user-attachments/assets/520cdd1b-d966-43f0-a676-40aacbd6eba6)
+
+
+### Search Page
+
+#### Search Page ('/search')
+![Image](https://github.com/user-attachments/assets/4c0cf21b-0aa4-4178-82fe-ee162576f629)
 
 
 

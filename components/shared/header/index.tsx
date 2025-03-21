@@ -1,5 +1,6 @@
 import Menu from './menu'
 import Logo from './logo'
+import Search from './search'
 
 export default function Header() {
     
@@ -9,6 +10,11 @@ export default function Header() {
 
             {/* Logo */}
             <Logo/>
+
+            {/* Search */}
+            <div className="hidden md:block">
+              <Search/>
+            </div>
 
             {/* Links */}
             <Menu/>

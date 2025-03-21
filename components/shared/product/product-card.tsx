@@ -10,7 +10,7 @@ export default function ProductCard({product} : {product: StoreProductReturnType
   return (
     <Card className='w-full max-w-sm'>
         {/* Card header */}
-        <CardHeader className='p-0 items-center'>
+        <CardHeader className='p-0 items-center m-2'>
             <Link
                 href={`/product/${product.slug}` }
             >
