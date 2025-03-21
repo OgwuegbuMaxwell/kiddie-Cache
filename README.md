@@ -81,7 +81,8 @@ The project leverages a robust stack for performance, scalability, and maintaina
 ### Search Page
 
 #### Search Page ('/search')
-![Image](https://github.com/user-attachments/assets/4c0cf21b-0aa4-4178-82fe-ee162576f629)
+
+![Image](https://github.com/user-attachments/assets/6e9ee0fc-451f-46f0-8fc3-813d2dafe550)
 
 
 
