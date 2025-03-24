@@ -31,6 +31,7 @@ export default function CredentialsSigninForm() {
 
     const searchParams = useSearchParams();
     const callbackUrl  = searchParams.get('callbackUrl') || '/'
+    console.log('Call Back Url: ', callbackUrl)
 
     // console.log(callbackUrl)
 

@@ -82,14 +82,14 @@ The project leverages a robust stack for performance, scalability, and maintaina
 
 #### Search Page ('/search')
 
-![Image](https://github.com/user-attachments/assets/6e9ee0fc-451f-46f0-8fc3-813d2dafe550)
+![Image](https://github.com/user-attachments/assets/9f4a64ff-aeeb-4eb7-8b45-8f41d4391c38)
 
 
 
 ### Product Page
 
-#### initial product page setup
-![Image](https://github.com/user-attachments/assets/69f8c6e7-9752-47bb-86e6-8b61fbefbd6e)
+#### Product page ('/product/{productSlud}')
+![Image](https://github.com/user-attachments/assets/8cff637e-8375-43df-9341-f7a02cf0e754)
 
 
 
@@ -118,6 +118,31 @@ The project leverages a robust stack for performance, scalability, and maintaina
 
 ###### Update Users
 ![Image](https://github.com/user-attachments/assets/34bc63af-5569-45d8-9bff-e57c3dcb192b)
+
+
+
+
+### Cart ---> To ---> Checkout
+
+#### Cart Page ('/cart')
+![Image](https://github.com/user-attachments/assets/32f566fe-aaea-4924-9131-56ed4ed75f26)
+
+
+#### Shipping Address Page ('/shipping-address')
+![Image](https://github.com/user-attachments/assets/ba4a4f88-3b6b-45b8-8cf9-c700e913ad27)
+
+
+#### Payment Method Page ('/payment-method')
+![Image](https://github.com/user-attachments/assets/ec7c3cd6-b3a2-44eb-9b9a-d72515bbf019)
+
+
+#### Place Order Page ('/place-order')
+![Image](https://github.com/user-attachments/assets/33543d0c-0d41-42a3-985a-8790eb4c0237)
+
+
+
+#### Order Page ('/order/{orderId}')
+![Image](https://github.com/user-attachments/assets/57a9a0f1-dc81-4151-8b4f-f4db7d167a36)
 
 
 

@@ -6,15 +6,21 @@ import ProductPrice from "./product-price";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import AddToCart from "./add-to-cart";
-import { UserCartReturnType } from "@/types";
 import WhatsAppButton from "../whatsapp-button";
 import { formatCurrency } from "@/lib/utils";
+import { getMyCart } from "@/lib/actions/cart.actions";
+import ReviewList from "./review/product-review-list";
+import { auth } from "@/auth";
+import Rating from "./rating";
 
 
-export default async function ProductDetailsContent({ slug, cart }: { slug: string, cart?: UserCartReturnType }) {
+export default async function ProductDetailsContent({ slug }: { slug: string}) {
     const product = await getProductBySlug(slug);
     if (!product) return notFound();
 
+    const cart = await getMyCart();
+    const session = await auth();
+    const userId = session?.user.id;
 
     const baseUrl =
     process.env.NODE_ENV === "development"
@@ -43,7 +49,11 @@ export default async function ProductDetailsContent({ slug, cart }: { slug: stri
                     <div className="flex flex-col gap-6">
                         <p>{product.brand} <CenteredDot /> {product.category}</p>
                         <h1 className="h3-bold">{product.name}</h1>
-                        <p>{product.rating} of {product.numReviews} Reviews</p>
+
+                        {/* <p>{product.rating} of {product.numReviews} Reviews</p> */}
+                        <Rating value={Number(product.rating)}/>
+                        <p>{product.numReviews} reviews</p>
+
                         <div className="flex flex-col sm:flex-row sm:items-center ">
                             <ProductPrice 
                                 value={Number(product.price)} 
@@ -111,6 +121,16 @@ export default async function ProductDetailsContent({ slug, cart }: { slug: stri
             </div>
             
 
+        </section>
+
+        {/* Review */}
+        <section className="mt-10">
+            <h2 className="h2-bold">Customer Reviews</h2>
+            <ReviewList
+                userId={userId || ''}
+                productId={product.id}
+                productSlug={product.slug}
+            />
         </section>
 
     </>

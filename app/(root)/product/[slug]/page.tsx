@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import ProductDetailsSkeleton from "@/components/shared/product/product-details-skeleton";
 import ProductDetailsContent from "@/components/shared/product/product-details-content";
-import { getMyCart } from "@/lib/actions/cart.actions";
+
 
 // interface PageProps {
 //     params: { slug: string };
@@ -10,14 +10,16 @@ import { getMyCart } from "@/lib/actions/cart.actions";
 export default async function ProductDetailsPage(props: {params: Promise<{slug: string}>}) {
     const { slug } = await props.params
 
-    const cart = await getMyCart();
+    
 
     return (
-        <section>
-            <Suspense fallback={<ProductDetailsSkeleton />}>
-                <ProductDetailsContent slug={slug} cart={cart}/>
-            </Suspense>
-        </section>
+        <>
+            <section>
+                <Suspense fallback={<ProductDetailsSkeleton />}>
+                    <ProductDetailsContent slug={slug} />
+                </Suspense>
+            </section>
+        </>
     );
 }
 

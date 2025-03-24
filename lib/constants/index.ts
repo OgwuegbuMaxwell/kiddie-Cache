@@ -55,5 +55,10 @@ export const USERS_ROLES = process.env.USERS_ROLES ? process.env.USERS_ROLES.spl
 
 
 
-
+export const reviewFormDefaultValues = {
+    title: '',
+    comment: '',
+    rating: 0,
+    
+}
 
